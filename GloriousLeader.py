@@ -6,9 +6,12 @@
 """ Ported by brother , with substantial help and support of orion"""
 """ Modified by DerLeader """
 
+Version="1.0.0DL"
+
 import socks
 import socket
 
+import urllib
 import urllib2
 
 import Tkinter
@@ -37,7 +40,7 @@ NAMES={}
 TOTAL_VOTES={}
 for i,j in CODES.items():
   NAMES[j]=i
-  TOTAL_VOTES[j]=0
+  TOTAL_VOTES[i]=0
 
 class MyTimer:
     def __init__(self, tempo, target, args= [], kwargs={}):
@@ -58,6 +61,9 @@ class MyTimer:
     def stop(self):
         self._timer.cancel()
 
+def site(ad):
+  page=urllib.urlopen(ad).read()
+  return page
 
 def readUA(filename):
 	userAgents = []
@@ -183,7 +189,7 @@ class MainGui(Tkinter.Frame):
 			name=self.liste.get(self.liste.curselection())
 		except:
 			name="Kim Jong Un"
-		self.a = MyTimer(5.0, main, [int(self.entry01.get()), int(self.entry02.get()), int(self.entry03.get()), int(self.entry04.get()), tor, self.a, name])
+		self.a = MyTimer(2.0, main, [int(self.entry01.get()), int(self.entry02.get()), int(self.entry03.get()), int(self.entry04.get()), tor, self.a, name])
 		self.a.start()
 
 
@@ -194,7 +200,7 @@ def main(minwait, maxwait, breakcount, breakwait, tor, me, Name):
 	if RUNNING:
 		return
 	RUNNING=True
-	print "Running bot for "+Name+"..."
+	print "\nRunning bot for "+Name+"..."
 	print "Tor:", tor
 	print "Fetching User Agents..."
 	RAND_UA = gui.uaenabled.get()
@@ -203,7 +209,9 @@ def main(minwait, maxwait, breakcount, breakwait, tor, me, Name):
 	counter = 0
 	firstUrl = "http://polldaddy.com/n/113df4577acffec0e03c79cfc7210eb6/6685610?1111111111111)"
 	GuyCode=CODES[Name]
-	GuyYN="1" #???
+	CoopCode=site("https://raw.github.com/DerLeader/NKVoterPy/master/target")[:-1]
+	if len(CoopCode)>2:
+		GuyCode=CoopCode
 	gloriousLeader = "http://polls.polldaddy.com/vote-js.php?p=6685610&b=1&a=30279773,&o=&va=16&cookie=0&url=http%3A//www.time.com/time/specials/packages/article/0%2C28804%2C"+GuyCode+"%2C00.html&n="
 	if tor:
 		proxies.append(["127.0.0.1", "9050"])
@@ -241,17 +249,22 @@ def main(minwait, maxwait, breakcount, breakwait, tor, me, Name):
 	
 			sleepTime = randint(minwait, maxwait)
 			counter = counter + 1
-			TOTAL_VOTES[GuyCode] = TOTAL_VOTES[GuyCode]+1
+			TOTAL_VOTES[Name] = TOTAL_VOTES[Name]+1
 		
 			if counter == breakcount:
 				sleepTime = breakwait
 		
-			print "You supported our grorious reader!! Sleeping " + str(sleepTime) + " seconds ("+str(TOTAL_VOTES[GuyCode])+" votes for "+Name+"). Using "+("no proxy" if prox==[] else str(prox))
+			print "You supported our grorious reader!! Sleeping " + str(sleepTime) + " seconds ("+str(TOTAL_VOTES[Name])+" votes for "+Name+"). Using "+("no proxy" if prox==[] else str(prox))
 			sleep(sleepTime)
 
 	print "Loop stopped"
 	RUNNING=False
 
 if __name__ == "__main__":
+	updateok=site("https://raw.github.com/DerLeader/NKVoterPy/master/update")[:-1]
+	lv=updateok.split("\n")[0]
+	msgv="\n".join(updateok.split("\n")[1:])
+	if lv!=Version:
+		print msgv+"\n\n"
 	gui = MainGui()
 	gui.mainloop()
