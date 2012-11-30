@@ -62,7 +62,10 @@ class MyTimer:
         self._timer.cancel()
 
 def site(ad):
-  page=urllib.urlopen(ad).read()
+  try:
+   page=urllib.urlopen(ad).read()
+  except:
+   page=" "
   return page
 
 def readUA(filename):
