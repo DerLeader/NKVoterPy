@@ -166,7 +166,6 @@ class MainGui(Tkinter.Frame):
 			return
 		p = p.split(":")
 		proxies.append(p)
-		self.entry02.set("")
 	
 	def loadprox1(self):
 		fn = tkFileDialog.askopenfilename()
@@ -223,7 +222,8 @@ def main(minwait, maxwait, breakcount, breakwait, tor, me, Name):
 		socket.socket = socks.socksocket
 #	print proxies
 
-	proxies.append([])
+	if len(proxies)==0:
+		proxies.append([])
 
 
 	while SHOULDRUN:
