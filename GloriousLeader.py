@@ -6,7 +6,7 @@
 """ Ported by brother , with substantial help and support of orion"""
 """ Modified by DerLeader """
 
-Version="1.0.2DL"
+Version="1.0.3DL"
 
 import socks
 import socket
@@ -230,7 +230,12 @@ def main(minwait, maxwait, breakcount, breakwait, tor, me, Name):
 	while SHOULDRUN:
 		for prox in proxies:
 			if not USE_TOR and len(prox)>0:
-				socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, prox[0], int(prox[1]))
+				prot=socks.PROXY_TYPE_SOCKS5
+				if len(prox)<3:
+					prot=socks.PROXY_TYPE_HTTP
+				if len(prox)>=3 and prox[2]=="s4":
+					prot=socks.PROXY_TYPE_SOCKS4
+				socks.setdefaultproxy(prot, prox[0], int(prox[1]))
 				socket.socket = socks.socksocket
 			if RAND_UA:
 				print "Using random UA"
@@ -270,5 +275,11 @@ if __name__ == "__main__":
 	msgv="\n".join(updateok.split("\n")[1:])
 	if lv!=Version:
 		print msgv+"\n\n"
+	
+	print "Proxy input type: \n  127.0.0.1:8080 for HTTP proxies\n  127.0.0.1:8080:s5 for SOCKS5 proxies\n  127.0.0.1:8080:s4 for SOCKS4 proxies"
+	
 	gui = MainGui()
 	gui.mainloop()
+	
+	
+	
