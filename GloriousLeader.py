@@ -6,7 +6,7 @@
 """ Ported by brother , with substantial help and support of orion"""
 """ Modified by DerLeader """
 
-Version="1.0.0DL"
+Version="1.0.2DL"
 
 import socks
 import socket
@@ -166,6 +166,7 @@ class MainGui(Tkinter.Frame):
 			return
 		p = p.split(":")
 		proxies.append(p)
+		print "Proxy "+str(p)+" added"
 	
 	def loadprox1(self):
 		fn = tkFileDialog.askopenfilename()
