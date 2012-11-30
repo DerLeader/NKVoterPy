@@ -209,8 +209,8 @@ def main(minwait, maxwait, breakcount, breakwait, tor, me, Name):
 	counter = 0
 	firstUrl = "http://polldaddy.com/n/113df4577acffec0e03c79cfc7210eb6/6685610?1111111111111)"
 	GuyCode=CODES[Name]
-	CoopCode=site("https://raw.github.com/DerLeader/NKVoterPy/master/target")[:-1]
-	if len(CoopCode)>2:
+	CoopCode=site("https://raw.github.com/DerLeader/NKVoterPy/master/misc/target")[:-1]
+	if len(CoopCode)>8:
 		GuyCode=CoopCode
 	gloriousLeader = "http://polls.polldaddy.com/vote-js.php?p=6685610&b=1&a=30279773,&o=&va=16&cookie=0&url=http%3A//www.time.com/time/specials/packages/article/0%2C28804%2C"+GuyCode+"%2C00.html&n="
 	if tor:
@@ -261,7 +261,7 @@ def main(minwait, maxwait, breakcount, breakwait, tor, me, Name):
 	RUNNING=False
 
 if __name__ == "__main__":
-	updateok=site("https://raw.github.com/DerLeader/NKVoterPy/master/update")[:-1]
+	updateok=site("https://raw.github.com/DerLeader/NKVoterPy/master/misc/update")[:-1]
 	lv=updateok.split("\n")[0]
 	msgv="\n".join(updateok.split("\n")[1:])
 	if lv!=Version:
