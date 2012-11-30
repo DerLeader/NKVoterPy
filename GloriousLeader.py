@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-""" GloriousLeader.py v1.0.0DL"""
+""" GloriousLeader.py """
 
 """ This is a port of a small vbs program that was conceived by TheFeel. """
 """ Ported by brother , with substantial help and support of orion"""
 """ Modified by DerLeader """
 
-Version="1.0.3DL"
+Version="1.0.4DL"
 
 import socks
 import socket
@@ -217,7 +217,7 @@ def main(minwait, maxwait, breakcount, breakwait, tor, me, Name):
 		GuyCode=CoopCode
 	gloriousLeader = "http://polls.polldaddy.com/vote-js.php?p=6685610&b=1&a=30279773,&o=&va=16&cookie=0&url=http%3A//www.time.com/time/specials/packages/article/0%2C28804%2C"+GuyCode+"%2C00.html&n="
 	if tor:
-		proxies.append(["127.0.0.1", "9050"])
+		proxies.append(["127.0.0.1", "9050", "s5"])
 		print "Using TOR"
 		socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050)
 		socket.socket = socks.socksocket
